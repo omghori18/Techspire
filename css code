@@ -47,6 +47,10 @@ body {
   font-weight: bold;
 }
 
+.nav-brand a {
+  text-decoration: none;
+}
+
 .nav-menu {
   display: flex;
   align-items: center;
