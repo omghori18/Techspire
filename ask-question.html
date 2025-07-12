@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ask Question - StackIt</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h2>StackIt</h2>
+            </div>
+            <div class="nav-search">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search questions..." class="search-input">
+                    <button class="search-btn" id="searchBtn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="ask-question.html" class="nav-link active">Ask Question</a>
+                <div class="nav-user">
+                    <div class="notification-bell" id="notificationBell">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count" id="notificationCount">0</span>
+                    </div>
+                    <div class="user-menu">
+                        <button class="btn-login" id="loginBtn">Login</button>
+                        <button class="btn-register" id="registerBtn">Register</button>
+                        <div class="user-profile hidden" id="userProfile">
+                            <span id="userName">User</span>
+                            <button class="btn-logout" id="logoutBtn">Logout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="ask-question-form">
+                <h1>Ask a Question</h1>
+                <form id="questionForm">
+                    <div class="form-group">
+                        <label for="questionTitle">Title *</label>
+                        <input type="text" id="questionTitle" placeholder="What's your programming question? Be specific." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="questionDescription">Description *</label>
+                        <div class="rich-editor">
+                            <div class="editor-toolbar">
+                                <button type="button" class="editor-btn" data-command="bold" title="Bold">
+                                    <i class="fas fa-bold"></i>
+                                </button>
+                                <button type="button" class="editor-btn" data-command="italic" title="Italic">
+                                    <i class="fas fa-italic"></i>
+                                </button>
+                                <button type="button" class="editor-btn" data-command="strikeThrough" title="Strikethrough">
+                                    <i class="fas fa-strikethrough"></i>
+                                </button>
+                                <div class="toolbar-separator"></div>
+                                <button type="button" class="editor-btn" data-command="insertOrderedList" title="Numbered List">
+                                    <i class="fas fa-list-ol"></i>
+                                </button>
+                                <button type="button" class="editor-btn" data-command="insertUnorderedList" title="Bullet List">
+                                    <i class="fas fa-list-ul"></i>
+                                </button>
+                                <div class="toolbar-separator"></div>
+                                <button type="button" class="editor-btn" data-command="justifyLeft" title="Align Left">
+                                    <i class="fas fa-align-left"></i>
+                                </button>
+                                <button type="button" class="editor-btn" data-command="justifyCenter" title="Align Center">
+                                    <i class="fas fa-align-center"></i>
+                                </button>
+                                <button type="button" class="editor-btn" data-command="justifyRight" title="Align Right">
+                                    <i class="fas fa-align-right"></i>
+                                </button>
+                                <div class="toolbar-separator"></div>
+                                <button type="button" class="editor-btn" id="linkBtn" title="Insert Link">
+                                    <i class="fas fa-link"></i>
+                                </button>
+                                <button type="button" class="editor-btn" id="imageBtn" title="Insert Image">
+                                    <i class="fas fa-image"></i>
+                                </button>
+                                <button type="button" class="editor-btn" id="emojiBtn" title="Insert Emoji">
+                                    <i class="fas fa-smile"></i>
+                                </button>
+                            </div>
+                            <div class="editor-content" id="questionDescription" contenteditable="true" placeholder="Describe your problem in detail..."></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="questionTags">Tags *</label>
+                        <div class="tags-input">
+                            <div class="selected-tags" id="selectedTags"></div>
+                            <input type="text" id="tagInput" placeholder="Add tags (press Enter to add)">
+                        </div>
+                        <div class="popular-tags">
+                            <span class="popular-tag" data-tag="javascript">JavaScript</span>
+                            <span class="popular-tag" data-tag="react">React</span>
+                            <span class="popular-tag" data-tag="css">CSS</span>
+                            <span class="popular-tag" data-tag="html">HTML</span>
+                            <span class="popular-tag" data-tag="nodejs">Node.js</span>
+                            <span class="popular-tag" data-tag="python">Python</span>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Post Question</button>
+                        <button type="button" class="btn-secondary" onclick="window.location.href='index.html'">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+   
+    <div class="modal" id="emojiModal">
+        <div class="modal-content emoji-picker">
+            <span class="close" id="closeEmoji">&times;</span>
+            <h3>Select Emoji</h3>
+            <div class="emoji-grid">
+                <span class="emoji-item">😀</span>
+                <span class="emoji-item">😃</span>
+                <span class="emoji-item">😄</span>
+                <span class="emoji-item">😁</span>
+                <span class="emoji-item">😆</span>
+                <span class="emoji-item">😅</span>
+                <span class="emoji-item">😂</span>
+                <span class="emoji-item">🤣</span>
+                <span class="emoji-item">😊</span>
+                <span class="emoji-item">😇</span>
+                <span class="emoji-item">🙂</span>
+                <span class="emoji-item">🙃</span>
+                <span class="emoji-item">😉</span>
+                <span class="emoji-item">😌</span>
+                <span class="emoji-item">😍</span>
+                <span class="emoji-item">🥰</span>
+                <span class="emoji-item">😘</span>
+                <span class="emoji-item">😗</span>
+                <span class="emoji-item">😙</span>
+                <span class="emoji-item">😚</span>
+                <span class="emoji-item">😋</span>
+                <span class="emoji-item">😛</span>
+                <span class="emoji-item">😝</span>
+                <span class="emoji-item">😜</span>
+                <span class="emoji-item">🤪</span>
+                <span class="emoji-item">🤨</span>
+                <span class="emoji-item">🧐</span>
+                <span class="emoji-item">🤓</span>
+                <span class="emoji-item">😎</span>
+                <span class="emoji-item">🤩</span>
+                <span class="emoji-item">🥳</span>
+                <span class="emoji-item">😏</span>
+                <span class="emoji-item">😒</span>
+                <span class="emoji-item">😞</span>
+                <span class="emoji-item">😔</span>
+                <span class="emoji-item">😟</span>
+                <span class="emoji-item">😕</span>
+                <span class="emoji-item">🙁</span>
+                <span class="emoji-item">☹️</span>
+                <span class="emoji-item">😣</span>
+                <span class="emoji-item">😖</span>
+                <span class="emoji-item">😫</span>
+                <span class="emoji-item">😩</span>
+                <span class="emoji-item">🥺</span>
+                <span class="emoji-item">😢</span>
+                <span class="emoji-item">😭</span>
+                <span class="emoji-item">😤</span>
+                <span class="emoji-item">😠</span>
+                <span class="emoji-item">😡</span>
+                <span class="emoji-item">🤬</span>
+                <span class="emoji-item">🤯</span>
+                <span class="emoji-item">😳</span>
+                <span class="emoji-item">🥵</span>
+                <span class="emoji-item">🥶</span>
+                <span class="emoji-item">😱</span>
+                <span class="emoji-item">😨</span>
+                <span class="emoji-item">😰</span>
+                <span class="emoji-item">😥</span>
+                <span class="emoji-item">😓</span>
+                <span class="emoji-item">🤗</span>
+                <span class="emoji-item">🤔</span>
+                <span class="emoji-item">🤭</span>
+                <span class="emoji-item">🤫</span>
+                <span class="emoji-item">🤥</span>
+                <span class="emoji-item">😶</span>
+                <span class="emoji-item">😐</span>
+                <span class="emoji-item">😑</span>
+                <span class="emoji-item">😬</span>
+                <span class="emoji-item">🙄</span>
+                <span class="emoji-item">😯</span>
+                <span class="emoji-item">😦</span>
+                <span class="emoji-item">😧</span>
+                <span class="emoji-item">😮</span>
+                <span class="emoji-item">😲</span>
+                <span class="emoji-item">🥱</span>
+                <span class="emoji-item">😴</span>
+                <span class="emoji-item">🤤</span>
+                <span class="emoji-item">😪</span>
+                <span class="emoji-item">😵</span>
+                <span class="emoji-item">🤐</span>
+                <span class="emoji-item">🥴</span>
+                <span class="emoji-item">🤢</span>
+                <span class="emoji-item">🤮</span>
+                <span class="emoji-item">🤧</span>
+                <span class="emoji-item">😷</span>
+                <span class="emoji-item">🤒</span>
+                <span class="emoji-item">🤕</span>
+                <span class="emoji-item">🤑</span>
+                <span class="emoji-item">🤠</span>
+                <span class="emoji-item">😈</span>
+                <span class="emoji-item">👿</span>
+                <span class="emoji-item">👹</span>
+                <span class="emoji-item">👺</span>
+                <span class="emoji-item">🤡</span>
+                <span class="emoji-item">💩</span>
+                <span class="emoji-item">👻</span>
+                <span class="emoji-item">💀</span>
+                <span class="emoji-item">☠️</span>
+                <span class="emoji-item">👽</span>
+                <span class="emoji-item">👾</span>
+                <span class="emoji-item">🤖</span>
+                <span class="emoji-item">🎃</span>
+                <span class="emoji-item">😺</span>
+                <span class="emoji-item">😸</span>
+                <span class="emoji-item">😹</span>
+                <span class="emoji-item">😻</span>
+                <span class="emoji-item">😼</span>
+                <span class="emoji-item">😽</span>
+                <span class="emoji-item">🙀</span>
+                <span class="emoji-item">😿</span>
+                <span class="emoji-item">😾</span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close" id="closeLogin">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email:</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password:</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+
+   
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <span class="close" id="closeRegister">&times;</span>
+            <h2>Register</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="registerName">Name:</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email:</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password:</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                <button type="submit" class="btn-primary">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="rich-editor.js"></script>
+</body>
+</html>
